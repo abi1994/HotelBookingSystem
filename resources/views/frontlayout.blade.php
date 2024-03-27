@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>Home Page</title>
 	<link href="{{asset('/bs5/bootstrap.min.css')}}" rel="stylesheet">
-  
+
       <!-- Custom fonts for this template-->
       <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -25,6 +25,11 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <div action="users.php" method="Post">
+        <input id="search" type="text" placeholder="Type here">
+        <button id="submit" type="submit" value="Search">
+        </div>
+
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
         <a class="nav-link" aria-current="page" href="#services">Services</a>

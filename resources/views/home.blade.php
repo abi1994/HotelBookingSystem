@@ -41,6 +41,7 @@
 	<div class="container my-4">
 			<h1 class="text-center border-bottom" id="gallery">Gallery</h1>
 			<div class="row my-4">
+                
 				@foreach($roomTypes as $rtype)
 				<div class="col-md-3">
 					<div class="card">

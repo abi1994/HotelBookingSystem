@@ -39,6 +39,9 @@ Route::get('admin/login',[AdminController::class,'login']);
 Route::post('admin/login',[AdminController::class,'check_login']);
 Route::get('admin/logout',[AdminController::class,'logout']);
 
+Route::get('/forgot-password',[AdminController::class,'forgotpassword']);
+Route::post('/forgot-password',[AdminController::class,'forgotpassword']);
+
 // RoomType Routes
 Route::get('admin/roomtype/{id}/delete',[RoomtypeController::class,'destroy']);
 Route::resource('admin/roomtype',RoomtypeController::class);

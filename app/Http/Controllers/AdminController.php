@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Booking;
 use Cookie;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 
 class AdminController extends Controller
 {
@@ -24,12 +26,12 @@ class AdminController extends Controller
             if($admin>0){
                 $adminData=Admin::where(['username'=>$request->username,'password'=>$request->password])->get();
                 session(['adminData'=>$adminData]);
-    
+
                 if($request->has('rememberme')){
                     Cookie::queue('adminuser',$request->username,1440);
                     Cookie::queue('adminpwd',$request->password,1440);
                 }
-    
+
                 return redirect('admin');
             }else{
                 return redirect('admin/login')->with('msg','Invalid username/Password!!');
@@ -49,7 +51,7 @@ class AdminController extends Controller
                 $labels[]=$booking['checkin_date'];
                 $data[]=$booking['total_bookings'];
             }
-    
+
             // For Pie Chart
             $rtbookings=DB::table('room_types as rt')
                 ->join('rooms as r','r.room_type_id','=','rt.id')
@@ -64,10 +66,32 @@ class AdminController extends Controller
                 $pdata[]=$rbooking->total_bookings;
             }
             // End
-    
+
             // echo '<pre>';
             // print_r($rtbookings);
-    
+
             return view('dashboard',['labels'=>$labels,'data'=>$data,'plabels'=>$plabels,'pdata'=>$pdata]);
+
+
+        }
+        function forgotpassword(){
+            return view('forgot-password');
+        }
+        
+        public function sendResetLinkEmail(Request $request)
+        {
+        $this->validateEmail($request);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return redirect()->back()->withErrors(['email' => 'We could not find a user with that email address.']);
+        }
+
+        $token = Password::getRepository()->create($user);
+
+        $user->sendPasswordResetNotification($token);
+
+        return redirect()->back()->with('status', 'We have emailed your password reset link!');
         }
 }
