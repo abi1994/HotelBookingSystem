@@ -16,7 +16,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        var_dump("index Start");exit();
+      
         $bookings=Booking::all();
         return view('booking.index',['data'=>$bookings]);
     }

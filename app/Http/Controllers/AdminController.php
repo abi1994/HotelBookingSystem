@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Booking;
 use Cookie;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
 class AdminController extends Controller
@@ -77,7 +76,7 @@ class AdminController extends Controller
         function forgotpassword(){
             return view('forgot-password');
         }
-        
+
         public function sendResetLinkEmail(Request $request)
         {
         $this->validateEmail($request);

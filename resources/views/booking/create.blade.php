@@ -7,7 +7,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Add Booking
-                                <a href="{{url('admin/booking')}}" class="float-right btn btn-success btn-sm">View All</a>
+                                <a href="{{url('admin/booking')}}" class="float-right btn btn-success btn-sm">View Ayeyryyll</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -65,7 +65,7 @@
                                             <td colspan="2">
                                                 <input type="hidden" name="roomprice" class="room-price" value="" />
                                                 <input type="submit" class="btn btn-primary" />
-                                            </td> 
+                                            </td>
                                         </tr>
                                     </table>
                                 </form>

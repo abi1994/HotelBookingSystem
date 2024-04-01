@@ -37,11 +37,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('login')}}" >
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-hotel"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Hotel Boking</div>
+                <div class="sidebar-brand-text mx-3">Hotel Booking</div>
             </a>
 
             <!-- Divider -->

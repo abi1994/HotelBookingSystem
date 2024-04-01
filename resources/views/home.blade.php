@@ -18,6 +18,7 @@
 	<span class="visually-hidden">Next</span>
 	</button>
 	</div>
+
 	<!-- Slider Section End -->
 	<div class="container my-4">
 		<h1 class="text-center border-bottom" id="services">Services</h1>
@@ -41,7 +42,7 @@
 	<div class="container my-4">
 			<h1 class="text-center border-bottom" id="gallery">Gallery</h1>
 			<div class="row my-4">
-                
+
 				@foreach($roomTypes as $rtype)
 				<div class="col-md-3">
 					<div class="card">
@@ -64,6 +65,108 @@
 			</div>
 		</div>
 	<!-- Gallery Section End -->
+     <!-- Modal -->
+    <div>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fancy Popup Modal</title>
+        <style>
+/* Button styles */
+        .button {
+        background-color: #0084ff; /* Blue background */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 25px; /* Rounded corners */
+        }
+
+/* Popup container */
+        .popup {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 9999; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+/* Popup content */
+        .popup-content {
+        background-color: #0084ff;
+        margin: 5% auto; /* 5% from the top and centered */
+        padding: 20px;
+        border: 1px solid #0084ff;
+        width: 80%; /* Could be more or less, depending on screen size */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Box shadow */
+        }
+
+/* Close button */
+        .close {
+        color: #010102;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus
+        {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+        }
+</style>
+</head>
+<body>
+
+<!-- Button to trigger the popup -->
+<button onclick="openPopup()" class="button">Search</button>
+
+<!-- Popup container -->
+<div id="popup" class="popup">
+  <!-- Popup content -->
+  <div class="popup-content">
+    <!-- Close button -->
+    <span class="close" onclick="closePopup()">&times;</span>
+    <!-- Content inside the popup -->
+    <input type="text" name="username" class="form-control form-control-user"  placeholder="Search Room">
+  </div>
+</div>
+
+<script>
+// Function to open the popup
+function openPopup() {
+  document.getElementById("popup").style.display = "block";
+}
+
+// Function to close the popup
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+// Close the popup if the user clicks outside of it
+window.onclick = function(event) {
+  if (event.target == document.getElementById("popup")) {
+    closePopup();
+  }
+}
+</script>
+    </div>
+  </div>
+
+    </div>
 <!-- LightBox css -->
 <link rel="stylesheet" type="text/css" href="{{asset('/vendor')}}/lightbox2-2.11.3/dist/css/lightbox.min.css" />
 <!-- LightBox Js -->
