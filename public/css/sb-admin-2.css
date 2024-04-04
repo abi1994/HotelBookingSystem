@@ -270,7 +270,7 @@ select {
 button,
 [type="button"],
 [type="reset"],
-[type="submit"] 
+[type="submit"]
 {
   -webkit-appearance: button;
 }
@@ -10862,7 +10862,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x80");
+  background: url("");
   background-position: center;
   background-size: cover;
 }

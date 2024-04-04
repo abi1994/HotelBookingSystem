@@ -28,16 +28,20 @@
                   <div class="form-outline mb-4">
                     <input type="email" name="email" id="form2Example17" class="form-control form-control-lg" />
                     <label class="form-label" nam for="form2Example17">Email address</label>
-                  </div>
+                    </div>
 
-                  <div class="form-outline mb-4">
+                    <div class="form-outline mb-4">
                     <input type="password" name="password" id="form2Example27" class="form-control form-control-lg" />
                     <label class="form-label" for="form2Example27">Password</label>
-                  </div>
+                    </div>
 
-                  <div class="pt-1 mb-4">
-                  <input type="submit" class="btn btn-primary btn-user btn-block"/>
-                  </div>
+                    <div class="form-outline mb-4">
+                    <input type="submit" class="btn btn-primary btn-user btn-block"/>
+                    </div>
+
+                    <div class="text-center">
+                    <a class="small" href="/forgot-password">Forgot Password?</a>
+                    </div>
                 </form>
 
               </div>
