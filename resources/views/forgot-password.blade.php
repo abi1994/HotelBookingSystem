@@ -20,52 +20,55 @@
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <div>
+    <div class="container">
 
-        <!-- Outer Row -->
-        <div>
-        <div>
-
-            <div>
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row g-0">
-                            <div class="col-lg-6 d-none d-lg-block ">
-                                <img src="{{asset('/img/Resetpassword.jpg')}}"
-                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+        <div class="card o-hidden border-0 shadow-lg">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row g-0">
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <img src="{{asset('/img/Resetpassword.jpg')}}" alt="login form" class="img-fluid"
+                            style="border-radius: 1rem 0 0 1rem;" />
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4"> Forgot Password? 🔒 </h1>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4"> Forgot Password? 🔒 </h1>
-                                    </div>
-                                    <form class="user" method="post" action="{{url('admin/login')}}">
-                                        @csrf
-                                        <div class="form-group">
-                        <input type="text" name="username" class="form-control form-control-user"
-                        @if(Cookie::has('adminuser')) value="{{Cookie::get('adminuser')}}"
-                        @endif id="email" name="email" aria-describedby="emailHelp"
-                                                placeholder="Email">
-                                        </div>
-                                        <div>
-                                        <input type="submit" href="/Reset-password" class="btn btn-primary btn-user btn-block" value="submit" />
-                                        </div>
-                                    </form>
-
+                            <form class="user" method="post" action="{{url('admin/login')}}">
+                                @csrf
+                                <div class="form-group">
+                                    <input type="text" name="username" class="form-control form-control-user"
+                                        @if(Cookie::has('adminuser')) value="{{Cookie::get('adminuser')}}" @endif
+                                        id="email" name="email" aria-describedby="emailHelp"
+                                        placeholder="Email">
                                 </div>
-                            </div>
+                                <div>
+                                    <input type="submit" href="/Reset-password"
+                                        class="btn btn-primary btn-user btn-block" value="submit" />
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
         </div>
 
     </div>
