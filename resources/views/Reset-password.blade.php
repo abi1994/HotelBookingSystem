@@ -44,12 +44,14 @@
                                     <form class="user" method="post" action="{{url('admin/login')}}">
                                         @csrf
                                         <div class="form-group">
-<input type="text" name="Password" class="form-control form-control-user" @if(Cookie::has('adminuser')) value="{{Cookie::get('adminuser')}}" @endif
-                                                id="Password" name="Password" aria-describedby="emailHelp"
+                                <input type="text" name="Password" class="form-control form-control-user"
+                                @if(Cookie::has('adminuser')) value="{{Cookie::get('adminuser')}}"
+                                @endif id="Password" name="Password" aria-describedby="emailHelp"
                                                 placeholder="Password">
                                         </div>
                                         <div class="form-group">
-<input name="password" @if(Cookie::has('adminpwd')) value="{{Cookie::get('adminpwd')}}" @endif  type="password" class="form-control form-control-user"
+                            <input name="password" @if(Cookie::has('adminpwd')) value="{{Cookie::get('adminpwd')}}"
+                            @endif  type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
 
