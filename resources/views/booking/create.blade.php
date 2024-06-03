@@ -28,21 +28,21 @@
                                         <tr>
                                             <th>Select Customer <span class="text-danger">*</span></th>
                                             <td>
-                                                <select class="form-control" name="customer_id">
+                                                <select class="form-control" name="selected_customer_id">
                                                     <option>--- Select Customer ---</option>
                                                     @foreach($data as $customer)
-                                                        <option value="{{$customer->id}}">{{$customer->full_name}}</option>
+                                                        <option value="{{$customer->id}}">{{$customer->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>CheckIn Date <span class="text-danger">*</span></th>
-                                            <td><input name="checkin_date" type="date" class="form-control checkin-date" /></td>
+                                            <td><input name="check_in_date" type="date" class="form-control checkin-date" /></td>
                                         </tr>
                                         <tr>
                                             <th>CheckOut Date <span class="text-danger">*</span></th>
-                                            <td><input name="checkout_date" type="date" class="form-control" /></td>
+                                            <td><input name="check_out_date" type="date" class="form-control checkout-date" /></td>
                                         </tr>
                                         <tr>
                                             <th>Avaiable Rooms <span class="text-danger">*</span></th>
@@ -63,7 +63,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">
-                                                <input type="hidden" name="roomprice" class="room-price" value="" />
+                                                <input type="hidden" name="total_price" class="total_price" value="" />
                                                 <input type="submit" class="btn btn-primary" />
                                             </td> 
                                         </tr>
@@ -81,22 +81,27 @@
     $(document).ready(function(){
         $(".checkin-date").on('blur',function(){
             var _checkindate=$(this).val();
+            var checkOutDate = $(".checkout-date").val();
             // Ajax
             $.ajax({
                 url:"{{url('admin/booking')}}/available-rooms/"+_checkindate,
                 dataType:'json',
+                data: {
+                    check_in_date: _checkindate,
+                    check_out_date: checkOutDate,
+                },
                 beforeSend:function(){
                     $(".room-list").html('<option>--- Loading ---</option>');
                 },
                 success:function(res){
                     var _html='';
                     $.each(res.data,function(index,row){
-                        _html+='<option data-price="'+row.roomtype.price+'" value="'+row.room.id+'">'+row.room.title+'-'+row.roomtype.title+'</option>';
+                        _html+='<option data-price="'+row.room_type.price+'" value="'+row.id+'">'+row.title+'-'+row.room_type.name+'</option>';
                     });
                     $(".room-list").html(_html);
 
                     var _selectedPrice=$(".room-list").find('option:selected').attr('data-price');
-                    $(".room-price").val(_selectedPrice);
+                    $(".total_price").val(_selectedPrice);
                     $(".show-room-price").text(_selectedPrice);
                 }
             });

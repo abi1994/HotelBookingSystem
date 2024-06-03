@@ -3,9 +3,10 @@
 	<!-- Slider Section Start -->
 	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
 	  <div class="carousel-inner">
+
 	  	@foreach($banners as $index => $banner)
 	    <div class="carousel-item @if($index==0) active @endif">
-	      <img src="{{asset($banner->banner_src)}}" class="d-block w-100" alt="{{$banner->alt_text}}">
+	      <img src="{{Storage::url($banner?->image?->filename)}}" class="d-block w-100" alt="{{$banner->alt_text}}">
 	    </div>
 	    @endforeach
 	  </div>
@@ -23,9 +24,10 @@
 	<div class="container my-4">
 		<h1 class="text-center border-bottom" id="services">Services</h1>
 		@foreach($services as $service)
+    
 		<div class="row my-4">
 			<div class="col-md-3">
-				<a href="{{url('service/'.$service->id)}}"><img class="img-thumbnail" style="width:100%;" src="{{asset($service->photo)}}" /></a>
+				<a href="{{url('service/'.$service->id)}}"><img class="img-thumbnail" style="width:100%;" src="{{Storage::url($service?->image?->filename)}}" /></a>
 			</div>
 			<div class="col-md-8">
 				<h3>{{$service->title}}</h3>
@@ -43,21 +45,19 @@
 			<h1 class="text-center border-bottom" id="gallery">Gallery</h1>
 			<div class="row my-4">
 
-				@foreach($roomTypes as $rtype)
+				@foreach($roomTypes as $roomType)
+        
 				<div class="col-md-3">
 					<div class="card">
-						<h5 class="card-header">{{$rtype->title}}</h5>
+						<h5 class="card-header">{{$roomType->name}}</h5>
 						<div class="card-body">
-							@foreach($rtype->roomtypeimgs as $index => $img)
-					<a href="{{asset('storage/app/'.$img->img_src)}}" data-lightbox="rgallery{{$rtype->id}}">
-						@if($index > 0)
-						<img  class="img-fluid hide" src="{{asset($img->img_src)}}" />
-						@else
-						<img  class="img-fluid" src="{{asset($img->img_src)}}" />
-						@endif
-					</a>
-				</td>
-				@endforeach
+							@foreach($roomType->images as $img)
+                <img 
+                style="width: 200px; height: 150px;" 
+                src="{{Storage::url($img->filename)}}"  alt="Image for {{ $roomType->name }}"  />
+
+
+				      @endforeach
 						</div>
 					</div>
 				</div>

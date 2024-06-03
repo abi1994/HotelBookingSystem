@@ -16,9 +16,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Title</th>
+                                            <th>Name</th>
                                             <th>Price</th>
-                                            <th>GalleryImages</th>
+                                            <th>Capacity</th>
+                                            <th>Gallery Images</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -27,9 +28,10 @@
                                             @foreach($data as $d)
                                         <tr>
                                             <td>{{$d->id}}</td>
-                                            <td>{{$d->title}}</td>
+                                            <td>{{$d->name}}</td>
                                             <td>{{$d->price}}</td>
-                                            <td>{{count($d->roomtypeimgs)}}</td>
+                                            <td>{{$d->capacity}}</td>
+                                            <td>{{count($d->images)}}</td>
                                             <td>
                                                 <a href="{{url('admin/roomtype/'.$d->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                                         <a href="{{url('admin/roomtype/'.$d->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>

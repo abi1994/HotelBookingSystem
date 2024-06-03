@@ -39,7 +39,7 @@
                                         </tr>
                                         <tr>
                                             <th>Photo <span class="text-danger">*</span></th>
-                                            <td><input name="photo" multiple type="file" /></td>
+                                            <td><input name="filename" type="file" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">

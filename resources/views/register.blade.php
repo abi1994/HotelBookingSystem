@@ -23,33 +23,44 @@
 				    @if(Session::has('success'))
 					<p class="text-success">{{session('success')}}</p>
 					@endif
+                    
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                                     <form class="user" method="post" action="{{url('admin/customer')}}">
                                         @csrf
                                         <div class="form-group">
-<input type="text" name="full_name" class="form-control form-control-user" 
-                                                id="full_name" name="full_name" 
-                                                placeholder="Full Name">
-                                        </div>
-					<div class="form-group">
-<input type="text" name="email" class="form-control form-control-user" 
-                                                id="email" name="email" aria-describedby="emailHelp"
-                                                placeholder="Email">
+                                            <input type="text" name="name" 
+                                                class="form-control form-control-user" 
+                                                id="name" placeholder="Full Name">
                                         </div>
                                         <div class="form-group">
-<input name="password" class="form-control form-control-user"
+                                            <input type="text" name="email" 
+                                                class="form-control form-control-user" 
+                                                id="email" aria-describedby="emailHelp" placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input name="password" type="password" 
+                                                class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
-					<div class="form-group">
-<input type="number" name="mobile" class="form-control form-control-user" 
-                                                id="mobile" name="mobile" 
-                                                placeholder="Mobile">
+                                        <div class="form-group">
+                                            <input type="number" name="phone_number" 
+                                                class="form-control form-control-user" 
+                                                id="mobile" placeholder="Mobile">
                                         </div>
-					<div class="form-group">
-<input type="text" name="address" class="form-control form-control-user" 
-                                                id="address" name="address" 
-                                                placeholder="Address">
+                                        <div class="form-group">
+                                            <input type="text" name="address" 
+                                                class="form-control form-control-user" 
+                                                id="address" placeholder="Address">
                                         </div>
-					<input type="hidden" name="ref" value="front" />
+					                    <input type="hidden" name="ref" value="front" />
                                         <input type="submit" class="btn btn-primary btn-user btn-block"/>
                                         
                                     </form>

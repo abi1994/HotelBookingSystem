@@ -17,11 +17,11 @@
             <table class="table table-bordered">
                 <tr>
                     <th>CheckIn Date <span class="text-danger">*</span></th>
-                    <td><input name="checkin_date" type="date" class="form-control checkin-date" /></td>
+                    <td><input name="check_in_date" type="date" class="form-control checkin-date" /></td>
                 </tr>
                 <tr>
                     <th>CheckOut Date <span class="text-danger">*</span></th>
-                    <td><input name="checkout_date" type="date" class="form-control" /></td>
+                    <td><input name="check_out_date" type="date" class="form-control" /></td>
                 </tr>
                 <tr>
                     <th>Avaiable Rooms <span class="text-danger">*</span></th>
@@ -43,9 +43,9 @@
                 <tr>
                     <td colspan="2">
                         @if(Session::has('data'))
-                    	<input type="hidden" name="customer_id" value="{{session('data')[0]->id}}" />
+                    	<input type="hidden" name="selected_customer_id" value="{{Auth::user()->id}}" />
                         @endif
-                        <input type="hidden" name="roomprice" class="room-price" value="" />
+                        <input type="hidden" name="total_price" class="room-price" value="" />
                     	<input type="hidden" name="ref" value="front" />
                         <input type="submit" class="btn btn-primary" />
                     </td> 
@@ -67,9 +67,11 @@
                     $(".room-list").html('<option>--- Loading ---</option>');
                 },
                 success:function(res){
+                console.log(res, 'res');
                     var _html='';
                     $.each(res.data,function(index,row){
-                        _html+='<option data-price="'+row.roomtype.price+'" value="'+row.room.id+'">'+row.room.title+'-'+row.roomtype.title+'</option>';
+                        console.log(row.room_type.name, 'row')
+                        _html+='<option data-price="'+row.room_type.price+'" value="'+row.id+'">'+row.title+' - '+row.room_type.name+'</option>';
                     });
                     $(".room-list").html(_html);
 

@@ -39,7 +39,9 @@
                   <input type="submit" class="btn btn-primary btn-user btn-block"/>
                   </div>
                 </form>
-
+                <div class="text-center">
+                  <a class="small" href="/forgot-password/request">Forgot Password?</a>
+              </div>
               </div>
             </div>
           </div>

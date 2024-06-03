@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreServiceRequest;
 use App\Models\Service;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -12,8 +13,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $data=Service::all();
-        return view('service.index',['data'=>$data]);
+        $data = Service::with('image')->get();
+
+        return view('service.index', ['data' => $data]);
     }
 
     /**
@@ -27,35 +29,20 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreServiceRequest $request)
     {
-        $request->validate([
-            'title'=>'required',
-            'small_desc'=>'required',
-            'detail_desc'=>'required',
-            'photo'=>'required',
-        ]);
+        $data = $request->validated();
 
-        if($request->hasFile('photo')){
-            $path = $request->file('photo')->store('temp');
-            $file = $request->file('photo');
-            $fileName = $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $fileName);
+        $newService = Service::create($data);
 
-            $imgPath="/uploads/".$fileName;
-            // $imgPath=$request->file('photo')->store('public/imgs');
-        }else{
-            $imgPath=null;
+        if ($request->hasFile('filename')) {
+            $fileName = Storage::disk('public')->put('/', $request->file('filename'));
+
+            $newService->image()->create(['filename' => $fileName]);
+
         }
-        
-        $data=new Service;
-        $data->title=$request->title;
-        $data->small_desc=$request->small_desc;
-        $data->detail_desc=$request->detail_desc;
-        $data->photo=$imgPath;
-        $data->save();
 
-        return redirect('admin/service/create')->with('success','Data has been added.');
+        return redirect('admin/service/create')->with('success', 'Service has been added.');
     }
 
     /**
@@ -63,8 +50,9 @@ class ServiceController extends Controller
      */
     public function show(string $id)
     {
-        $data=Service::find($id);
-        return view('service.show',['data'=>$data]);
+        $data = Service::find($id);
+
+        return view('service.show', ['data' => $data?->load('image')]);
     }
 
     /**
@@ -72,41 +60,33 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
-        $data=Service::find($id);
-        return view('service.edit',['data'=>$data]);
+        $data = Service::find($id);
+
+        return view('service.edit', ['data' => $data?->load('image')]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreServiceRequest $request, string $id)
     {
-        $request->validate([
-            'title'=>'required',
-            'small_desc'=>'required',
-            'detail_desc'=>'required'
-        ]);
+        $data = $request->validated();
 
-        if($request->hasFile('photo')){
-            $path = $request->file('photo')->store('temp');
-            $file = $request->file('photo');
-            $fileName = $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $fileName);
+        $service = Service::find($id);
 
-            $imgPath="/uploads/".$fileName;
-            // $imgPath=$request->file('photo')->store('public/imgs');
-        }else{
-            $imgPath=$request->prev_photo;
+        $service->update($data);
+
+        $service->refresh();
+
+        if ($request->hasFile('filename')) {
+
+            $fileName = Storage::disk('public')->put('/', $request->file('filename'));
+
+            $service->image()->update(['filename' => $fileName]);
+
         }
-        
-        $data=Service::find($id);
-        $data->title=$request->title;
-        $data->small_desc=$request->small_desc;
-        $data->detail_desc=$request->detail_desc;
-        $data->photo=$imgPath;
-        $data->save();
 
-        return redirect('admin/service/'.$id.'/edit')->with('success','Data has been updated.');
+        return redirect('admin/service/'.$service->id.'/edit')->with('success', 'Service has been updated.');
     }
 
     /**
@@ -114,7 +94,8 @@ class ServiceController extends Controller
      */
     public function destroy(string $id)
     {
-        Service::where('id',$id)->delete();
-        return redirect('admin/service')->with('success','Data has been deleted.');
+        Service::where('id', $id)->delete();
+
+        return redirect('admin/service')->with('success', 'Service has been deleted.');
     }
 }

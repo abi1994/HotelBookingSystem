@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id');
-            $table->integer('room_id');
-            $table->string('checkin_date');
-            $table->string('checkout_date');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('room_id')->constrained()->onDelete('cascade');
+            $table->foreignId('selected_customer_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->dateTime('check_in_date');
+            $table->dateTime('check_out_date');
+            $table->decimal('total_price', 8, 2);
             $table->string('total_adults');
             $table->string('total_children');
+
             $table->string('ref');
             $table->timestamps();
         });

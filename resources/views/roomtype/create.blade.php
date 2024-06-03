@@ -20,19 +20,23 @@
                                     <table class="table table-bordered" >
                                         <tr>
                                             <th>Title</th>
-                                            <td><input name="title" type="text" class="form-control" /></td>
+                                            <td><input name="name" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <th>Price</th>
                                             <td><input name="price" type="number" class="form-control" /></td>
                                         </tr>
                                         <tr>
+                                            <th>Capacity</th>
+                                            <td><input name="capacity" type="number" class="form-control" /></td>
+                                        </tr>
+                                        <tr>
                                             <th>Detail</th>
-                                            <td><textarea name="detail" class="form-control"></textarea></td>
+                                            <td><textarea name="description" class="form-control"></textarea></td>
                                         </tr>
                                         <tr>
                                             <th>Gallery</th>
-                                            <td><input type="file" multiple name="imgs[]" /></td>
+                                            <td><input type="file" name="filename" /></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">

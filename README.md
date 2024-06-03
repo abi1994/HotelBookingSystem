@@ -7,26 +7,36 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-
-# Step 01 
+# Step 01
 
 To install depentency
+
 ```sh
+
 composer install
 ```
 
-# Step 02 
+# Step 02
 
-To magrate database
+Run the command to get email and password of admin
+
 ```sh
-php artisan migrate:fresh
+php artisan create:admin 
+
+# Step 03
+
+Run the command To create the symbolic link
+
+```sh
+php artisan storage:link 
 ```
 
-# Step 03 
+# Step 04
 
 To run the web server
+
 ```sh
 php artisan serve 
 ```
 
-# HotelBooking 
+# HotelBooking

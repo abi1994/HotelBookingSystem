@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body >
 
     <div class="container">
 
@@ -35,24 +35,42 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <img src="{{asset('/img/ResetPassword.webp')}}" alt="login form" class="img-fluid"
+                            style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" method="post" action="{{url('admin/login')}}">
+                                    <form class="user" method="POST" action="{{url('reset-password')}}">
                                         @csrf
+                                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
                                         <div class="form-group">
-<input type="text" name="Password" class="form-control form-control-user" @if(Cookie::has('adminuser')) value="{{Cookie::get('adminuser')}}" @endif
-                                                id="Password" name="Password" aria-describedby="emailHelp"
-                                                placeholder="Password">
-                                        </div>
-                                        <div class="form-group">
-<input name="password" @if(Cookie::has('adminpwd')) value="{{Cookie::get('adminpwd')}}" @endif  type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                        <input type="email" name="email" class="form-control form-control-user" 
+                                                value="{{ $request->email }}" 
+                                                id="email"  aria-describedby="emailHelp" 
+                                                required autofocus autocomplete="username" placeholder="Email">
+
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
 
+                                        <div class="form-group">
+                                        <input type="password" name="password" class="form-control form-control-user" 
+                                                id="password"  aria-describedby="emailHelp" 
+                                                required autocomplete="new-password" placeholder="Password">
+
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        </div>
+                                        <div class="form-group">
+                                        <input name="password_confirmation" type="password" 
+                                                class="form-control form-control-user" id="password_confirmation" 
+                                                required autocomplete="new-password" placeholder="Confirm Password">
+
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                        </div>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Reset Password" />
                                     </form>
 
                                 </div>

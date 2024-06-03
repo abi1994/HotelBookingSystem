@@ -27,12 +27,12 @@
                                     </thead>
                                     <tbody>
                                         @if($data)
-                                            @foreach($data as $d)
+                                            @foreach($data as $index => $d)
                                             <tr>
-                                                <td>{{$d->id}}</td>
-                                                <td>{{$d->full_name}}</td>
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{$d->name}}</td>
                                                 <td>{{$d->email}}</td>
-                                                <td>{{$d->mobile}}</td>
+                                                <td>{{$d->phone_number ?? 'N/A'}}</td>
                                                 <td>
                                                     <a href="{{url('admin/customer/'.$d->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                                     <a href="{{url('admin/customer/'.$d->id).'/edit'}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>

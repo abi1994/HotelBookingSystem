@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreBannerRequest;
 use App\Models\Banner;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -14,8 +15,9 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $data=Banner::all();
-        return view('banner.index',['data'=>$data]);
+        $data = Banner::with('image')->get();
+
+        return view('banner.index', ['data' => $data]);
     }
 
     /**
@@ -31,45 +33,22 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBannerRequest $request)
     {
+        $data = $request->validated();
 
-        $request->validate([
-            'banner_src'=>'required|image',
-            'alt_text'=>'required',
-        ]);
+        $newBanner = Banner::create($data);
 
-        if($request->hasFile('banner_src')){
-            // var_dump(public_path('uploads'), $request->file('banner_src'));exit();
+        if ($request->hasFile('filename')) {
+            $fileName = Storage::disk('public')->put('/', $request->file('filename'));
 
-            $path = $request->file('banner_src')->store('temp');
-            $file = $request->file('banner_src');
-            $fileName = $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $fileName);
+            $newBanner->image()->create(['filename' => $fileName]);
 
-            $imgPath="/uploads/".$fileName;
-            // var_dump($imgPath);exit();
-            
-            // $imgPath=$request->file('banner_src')->store('public/imgs');
-        }else{
-            $imgPath=$request->prev_photo;
         }
 
-        
-        
-        $data=new Banner;
-        
-        $data->banner_src=$imgPath;
-        $data->alt_text=$request->alt_text;
-        $data->publish_status=$request->publish_status;
-        // $fileName = $request->file('banner_src')->getClientOriginalName();
-        // $data->move(public_path('uploads'), $fileName);
-        $data->save();
-
-        return redirect('admin/banner/create')->with('success','Data has been added.');
+        return redirect('admin/banner/create')->with('success', 'Banner has been added.');
     }
 
     /**
@@ -80,8 +59,9 @@ class BannerController extends Controller
      */
     public function show($id)
     {
-        $data=Banner::find($id);
-        return view('banner.show',['data'=>$data]);
+        $data = Banner::find($id);
+
+        return view('banner.show', ['data' => $data->load('image')]);
     }
 
     /**
@@ -91,46 +71,36 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
-        $data=Banner::find($id);
-        return view('banner.edit',['data'=>$data]);
+    {
+        $data = Banner::find($id);
+
+        return view('banner.edit', ['data' => $data->load('image')]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreBannerRequest $request, $id)
     {
-        $request->validate([
-            'prev_photo'=>'required',
-            'alt_text'=>'required',
-        ]);
+        $data = $request->validated();
 
-        if($request->hasFile('banner_src')){
-            $path = $request->file('banner_src')->store('temp');
-            $file = $request->file('banner_src');
-            $fileName = $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $fileName);
+        $banner = Banner::findOrFail($id);
 
-            $imgPath="/uploads/".$fileName;
-            // $imgPath=$request->file('banner_src')->store('public/imgs');
-        }else{
-            $imgPath=$request->prev_photo;
+        $banner->update($data);
+
+        $banner->refresh();
+
+        if ($request->hasFile('filename')) {
+            $fileName = Storage::disk('public')->put('/', $request->file('filename'));
+
+            $banner->image()->update(['filename' => $fileName]);
+
         }
-        
-        $data=Banner::find($id);
-        $data->banner_src=$imgPath;
-        $data->alt_text=$request->alt_text;
-        $data->publish_status=$request->publish_status;
-        $data->save();
 
-
-
-        return redirect('admin/banner/'.$id.'/edit')->with('success','Data has been updated.');
+        return redirect('admin/banner/'.$banner->id.'/edit')->with('success', 'Banner has been updated.');
     }
 
     /**
@@ -141,7 +111,8 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-       Banner::where('id',$id)->delete();
-       return redirect('admin/banner')->with('success','Data has been deleted.');
+        Banner::where('id', $id)->delete();
+
+        return redirect('admin/banner')->with('success', 'Banner has been deleted.');
     }
 }

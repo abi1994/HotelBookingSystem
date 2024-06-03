@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('room_type_id')->constrained()->onDelete('cascade');
             $table->string('title');
+            $table->string('number');
             $table->timestamps();
         });
     }

@@ -29,15 +29,16 @@
 
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-        <a class="nav-link" aria-current="page" href="#services">Services</a>
-	        <a class="nav-link" href="#gallery">Gallery</a>
+        <a class="nav-link" aria-current="page" href="/#services">Services</a>
+	        <a class="nav-link" href="/#gallery">Gallery</a>
 	        @if(Session::has('customerlogin'))
 	        <a class="nav-link" href="{{url('logout')}}">Logout</a>
 	        <a class="nav-link btn btn-sm btn-danger" href="{{url('booking')}}">Booking</a>
+                <a class="nav-link" href="{{url('profile')}}">Profile</a>
 	        @else
 	        <a class="nav-link" href="{{url('login')}}">Login</a>
 	        <a class="nav-link" href="{{url('register')}}">Register</a>
-	        <a class="nav-link btn btn-sm btn-danger" href="{{url('booking')}}">Booking</a>
+	        <a class="nav-link btn btn-sm btn-danger" href="{{url('register')}}">Booking</a>
 	        @endif
         </div>
       </div>

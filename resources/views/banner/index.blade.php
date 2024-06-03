@@ -6,7 +6,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Customers
+                            <h6 class="m-0 font-weight-bold text-primary">Banners
                                 <a href="{{url('admin/banner/create')}}" class="float-right btn btn-success btn-sm">Add New</a>
                             </h6>
                         </div>
@@ -30,7 +30,7 @@
                                             @foreach($data as $d)
                                             <tr>
                                                 <td>{{$d->id}}</td>
-                                                <td><img width="100" src="{{asset('storage/app/'.$d->banner_src)}}" /></td>
+                                                <td><img width="100" src="{{Storage::url($d->image?->filename)}}" /></td>
                                                 <td>{{$d->alt_text}}</td>
                                                 <td>{{$d->publish_status}}</td>
                                                 <td>

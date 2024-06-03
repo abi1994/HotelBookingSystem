@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body>
 
     <div class="container">
 
@@ -35,7 +35,10 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <img src="{{asset('/img/AdminLogin.webp')}}" alt="login form" class="img-fluid"
+                                style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -44,17 +47,22 @@
                                     <form class="user" method="post" action="{{url('admin/login')}}">
                                         @csrf
                                         <div class="form-group">
-<input type="text" name="username" class="form-control form-control-user" @if(Cookie::has('adminuser')) value="{{Cookie::get('adminuser')}}" @endif
-                                                id="username" name="username" aria-describedby="emailHelp"
-                                                placeholder="username">
+                                        <input type="text" name="email" class="form-control form-control-user" 
+                                            @if(Cookie::has('adminuser')) value="{{Cookie::get('adminuser')}}" @endif
+                                                id="email" name="email" aria-describedby="emailHelp"
+                                                placeholder="email">
                                         </div>
                                         <div class="form-group">
-<input name="password" @if(Cookie::has('adminpwd')) value="{{Cookie::get('adminpwd')}}" @endif  type="password" class="form-control form-control-user"
+                                        <input name="password" 
+                                            @if(Cookie::has('adminpwd')) value="{{Cookie::get('adminpwd')}}" @endif  
+                                                type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-<input type="checkbox" @if(Cookie::has('adminuser')) checked @endif name="rememberme" class="custom-control-input" id="customCheck">
+                                            <input type="checkbox" 
+                                                @if(Cookie::has('adminuser')) checked @endif 
+                                                    name="rememberme" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
@@ -75,7 +83,7 @@
 
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="/forgot-password">Forgot Password?</a>
+                                        <a class="small" href="/forgot-password/request">Forgot Password?</a>
                                     </div>
                                 </div>
                             </div>

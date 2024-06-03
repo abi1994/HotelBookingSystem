@@ -28,7 +28,7 @@
                                     <table class="table table-bordered" >
                                         <tr>
                                             <th>Full Name <span class="text-danger">*</span></th>
-                                            <td><input value="{{$data->full_name}}" name="full_name" type="text" class="form-control" /></td>
+                                            <td><input value="{{$data->name}}" name="name" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <th>Email <span class="text-danger">*</span></th>
@@ -36,14 +36,14 @@
                                         </tr>
                                         <tr>
                                             <th>Mobile <span class="text-danger">*</span></th>
-                                            <td><input value="{{$data->mobile}}" name="mobile" type="text" class="form-control" /></td>
+                                            <td><input value="{{$data->phone_number}}" name="phone_number" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <th>Photo</th>
                                             <td>
-                                                <input name="photo" type="file" />
+                                                <input name="filename" type="file" />
                                                 <input type="hidden" name="prev_photo" value="{{$data->photo}}" />
-                                                <img width="100" src="{{asset('storage/app/'.$data->photo)}}" />
+                                                <img width="100" src="{{Storage::url($data->profileImage?->filename)}}" />
                                             </td>
                                         </tr>
                                         <tr>

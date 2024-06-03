@@ -27,7 +27,7 @@
                                     <table class="table table-bordered" >
                                         <tr>
                                             <th>Full Name <span class="text-danger">*</span></th>
-                                            <td><input name="full_name" type="text" class="form-control" /></td>
+                                            <td><input name="name" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <th>Email <span class="text-danger">*</span></th>
@@ -39,11 +39,11 @@
                                         </tr>
                                         <tr>
                                             <th>Mobile <span class="text-danger">*</span></th>
-                                            <td><input name="mobile" type="text" class="form-control" /></td>
+                                            <td><input name="phone_number" type="text" class="form-control" /></td>
                                         </tr>
                                         <tr>
                                             <th>Photo</th>
-                                            <td><input name="photo" multiple type="file" /></td>
+                                            <td><input name="filename" type="file" /></td>
                                         </tr>
                                         <tr>
                                             <th>Address</th>

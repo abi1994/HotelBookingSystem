@@ -6,7 +6,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Update Customer
+                            <h6 class="m-0 font-weight-bold text-primary">Update Banner
                                 <a href="{{url('admin/banner')}}" class="float-right btn btn-success btn-sm">View All</a>
                             </h6>
                         </div>
@@ -29,9 +29,9 @@
                                         <tr>
                                             <th>Banner Image<span class="text-danger">*</span></th>
                                             <td>
-                                                <input name="banner_src" type="file" />
+                                                <input name="filename" type="file" />
                                                 <input type="hidden" name="prev_photo" value="{{$data->banner_src}}" />
-                                                <img width="100" src="{{asset('storage/app/'.$data->banner_src)}}" />
+                                                <img width="100" src="{{Storage::url($data->image?->filename)}}" />
                                             </td>
                                         </tr>
                                         <tr>

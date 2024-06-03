@@ -24,7 +24,7 @@
                                                 <select name="rt_id" class="form-control">
                                                     <option value="0">--- Select ---</option>
                                                     @foreach($roomtypes as $rt)
-                                                    <option value="{{$rt->id}}">{{$rt->title}}</option>
+                                                    <option value="{{$rt->id}}">{{$rt->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </td>

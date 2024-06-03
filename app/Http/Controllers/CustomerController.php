@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CustomerLoginRequest;
+use App\Http\Requests\CustomerRegistrationRequest;
+use App\Models\Customer;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -15,8 +16,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $data=Customer::all();
-        return view('customer.index',['data'=>$data]);
+        $data = User::isCustomer()->get();
+
+        return view('customer.index', ['data' => $data]);
     }
 
     /**
@@ -30,31 +32,28 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CustomerRegistrationRequest $request)
     {
-        $data = $request->validate([
-            'full_name'=>'required',
-            'email'=>'required|email',
-            'password'=>'required',
-            'mobile'=>'required',
-            'address'=>'nullable',
-        ]);
+        $data = $request->validated();
 
-        $customerDetail = collect($data)->except('password')->toArray();
-
-
-        Customer::create(
-           $customerDetail + ['password' => Hash::make($data['password'])]
+        $newCustomer = User::create(
+            $data + ['is_admin' => false]
         );
 
-        $ref=$request->ref;
+        if ($request->hasFile('filename')) {
+            $fileName = Storage::disk('public')->put('/', $request->file('filename'));
 
+            $newCustomer->profileImage()->create(['filename' => $fileName]);
 
-        if($ref=='front'){
-            return redirect('login')->with('success','Data has been saved.');
         }
 
-        return redirect('admin/customer/create')->with('success','Data has been added.');
+        $ref = $request->ref;
+
+        if ($ref == 'front') {
+            return redirect('login')->with('success', 'Data has been saved.');
+        }
+
+        return redirect('admin/customer/create')->with('success', 'Data has been added.');
     }
 
     /**
@@ -62,8 +61,9 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        $data=Customer::find($id);
-        return view('customer.show',['data'=>$data]);
+        $data = User::isCustomer()->find($id);
+
+        return view('customer.show', ['data' => $data->load('profileImage')]);
     }
 
     /**
@@ -71,37 +71,32 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $data=Customer::find($id);
-        return view('customer.edit',['data'=>$data]);
+        $data = User::isCustomer()->find($id);
+
+        return view('customer.edit', ['data' => $data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CustomerRegistrationRequest $request, string $id)
     {
-        $request->validate([
-            'full_name'=>'required',
-            'email'=>'required|email',
-            'mobile'=>'required',
-        ]);
+        $data = $request->validated();
 
-        if($request->hasFile('photo')){
-            $imgPath=$request->file('photo')->store('public/imgs');
-        }else{
-            $imgPath=$request->prev_photo;
+        $customer = User::isCustomer()->find($id);
+
+        $customer->update($data);
+
+        $customer->refresh();
+
+        if ($request->hasFile('filename')) {
+            $fileName = Storage::disk('public')->put('/', $request->file('filename'));
+
+            $customer->profileImage()->update(['filename' => $fileName]);
+
         }
 
-        $data=Customer::find($id);
-        $data->full_name=$request->full_name;
-        $data->email=$request->email;
-        $data->mobile=$request->mobile;
-        $data->address=$request->address;
-        $data->photo=$imgPath;
-        $data->save();
-
-
-        return redirect('admin/customer/'.$id.'/edit')->with('success','Data has been updated.');
+        return redirect('admin/customer/'.$customer->id.'/edit')->with('success', 'Customer has been updated.');
     }
 
     /**
@@ -109,43 +104,45 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        Customer::where('id',$id)->delete();
-       return redirect('admin/customer')->with('success','Data has been deleted.');
+        Customer::where('id', $id)->delete();
+
+        return redirect('admin/customer')->with('success', 'Data has been deleted.');
     }
 
     // Login
-    public function login(){
+    public function login()
+    {
         return view('frontlogin');
     }
 
     // Check Login
-    public function customer_login(CustomerLoginRequest $request)
+    public function customerLogin(CustomerLoginRequest $request)
     {
 
-        $credentials = $request->only('email', 'password');    
+        $credentials = $request->only('email', 'password');
 
-        $customer = Customer::where(
-            ['email'=> $credentials['email'] ])->firstOrFail();
+        if (Auth::attempt($credentials + ['is_admin' => false])) {
+            session(['customerlogin' => true, 'data' => Auth::user()]);
 
-            if ($customer) {
-                if (Hash::check($credentials['password'], $customer->password)) {
-                    session(['customerlogin'=> true,'data'=>$customer]);
-                    return redirect('/');
-                }
-            }
+            return redirect('/');
+        }
 
-        return redirect('login')->with('error','Invalid email/password!!');
-      
+        return redirect('login')->with('error', 'Invalid email/password!!');
+
     }
 
     // register
-    public function register(){
+    public function register()
+    {
         return view('register');
     }
 
     // Logout
-    public function logout(){
-        session()->forget(['customerlogin','data']);
+    public function logout()
+    {
+
+        session()->forget(['customerlogin', 'data']);
+
         return redirect('login');
     }
 }

@@ -41,9 +41,8 @@
                                         <tr>
                                             <th>Photo</th>
                                             <td>
-                                                <input name="photo" type="file" />
-                                                <input type="hidden" name="prev_photo" value="{{$data->photo}}" />
-                                                <img width="100" src="{{asset('storage/app/'.$data->photo)}}" />
+                                                <input name="filename" type="file" />
+                                                <img width="100" src="{{Storage::url($data->image->filename)}}" />
                                             </td>
                                         </tr>
                                         <tr>

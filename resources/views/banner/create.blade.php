@@ -6,7 +6,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Add Customer
+                            <h6 class="m-0 font-weight-bold text-primary">Add Banner
                                 <a href="{{url('admin/banner')}}" class="float-right btn btn-success btn-sm">View All</a>
                             </h6>
                         </div>
@@ -27,7 +27,7 @@
                                     <table class="table table-bordered" >
                                         <tr>
                                             <th>Banner Image<span class="text-danger">*</span></th>
-                                            <td><input name="banner_src" type="file" /></td>
+                                            <td><input name="filename" type="file" /></td>
                                         </tr>
                                         <tr>
                                             <th>Alt Text <span class="text-danger">*</span></th>
