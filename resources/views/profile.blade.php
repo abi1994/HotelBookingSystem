@@ -14,17 +14,25 @@
                         </div>
 
                     </div>
-                    <div class="profile-image-wrapper mt-2 mb-2">
-                    @if(Auth::user()->photo)
-                        <img src="{{ Storage::url('profile_images/' . Auth::user()->photo) }}" alt="Profile Image" class="img-thumbnail mb-2" width="100">
-                    @else
-                        <img src="{{ asset('images/default-profile.png') }}" alt="Default Profile Image" class="img-thumbnail mb-2" width="100">
-                    @endif
-                    <form method="POST" action="{{ url('/profile') }}" enctype="multipart/form-data" id="profile-image-form" class="mt-2">
-                        @csrf
-                        <input id="profile_image" type="file" class="form-control" name="profile_image" onchange="document.getElementById('profile-image-form').submit();">
-                    </form>
+                    <div class="profile-image-wrapper text-center mt-4 mb-4">
+                        <div class="profile-image-container mb-3">
+                            @if(Auth::user()->photo)
+                                <img src="{{ Storage::url('profile_images/' . Auth::user()->photo) }}" alt="Profile Image" class="rounded-circle border border-primary" width="150" height="150">
+                            @else
+                                <img src="{{ asset('images/default-profile.png') }}" alt="Default Profile Image" class="rounded-circle border border-secondary" width="150" height="150">
+                            @endif
+                        </div>
+                        <form method="POST" action="{{ url('/profile') }}" enctype="multipart/form-data" id="profile-image-form" class="d-inline-block">
+                            @csrf
+                            <div class="form-group">
+                                <label for="profile_image" class="btn btn-primary">
+                                    Change Profile Image
+                                    <input id="profile_image" type="file" class="d-none" name="profile_image" onchange="document.getElementById('profile-image-form').submit();">
+                                </label>
+                            </div>
+                        </form>
                     </div>
+
                     <div class="card-body text-center">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -88,25 +96,20 @@
                         @else
                             <div class="table-responsive">
                                 <table class="table table-bordered">
-                                    <thead>
+
                                     <tr>
-                                        <th>#</th>
                                         <th>Room No.</th>
                                         <th>Room Type</th>
                                         <th>CheckIn Date</th>
                                         <th>CheckOut Date</th>
-                                        <th>Ref</th>
                                     </tr>
-                                    </thead>
                                     <tbody>
                                     @foreach($bookings as $booking)
                                         <tr>
-                                            <td>{{ $booking->id }}</td>
                                             <td>{{ $booking->room->title }}</td>
                                             <td>{{ $booking->room->roomType?->name }}</td>
                                             <td>{{ $booking->check_in_date }}</td>
                                             <td>{{ $booking->check_out_date }}</td>
-                                            <td>{{ $booking->ref }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
