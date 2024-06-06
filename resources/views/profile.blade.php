@@ -46,33 +46,33 @@
                             <div class="row mb-3 justify-content-center">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control-plaintext" value="{{ Auth::user()->name }}" readonly>
+                                    <input id="name" type="text" class="form-control-plaintext" value="{{ Auth::user()->name }}" >
                                 </div>
                             </div>
 
                             <div class="row mb-3 justify-content-center">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control-plaintext" value="{{ Auth::user()->email }}" readonly>
+                                    <input id="email" type="email" class="form-control-plaintext" value="{{ Auth::user()->email }}" >
                                 </div>
                             </div>
                             <div class="row mb-3 justify-content-center">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control-plaintext" value="{{ Auth::user()->address }}" readonly>
+                                    <input id="email" type="email" class="form-control-plaintext" value="{{ Auth::user()->address }}" >
                                 </div>
                             </div>
                             <div class="row mb-3 justify-content-center">
                                 <label for="created_at" class="col-md-4 col-form-label text-md-end">{{ __('Member Since') }}</label>
                                 <div class="col-md-6">
-                                    <input id="created_at" type="text" class="form-control-plaintext" value="{{ Auth::user()->created_at->format('M d, Y') }}" readonly>
+                                    <input id="created_at" type="text" class="form-control-plaintext" value="{{ Auth::user()->created_at->format('M d, Y') }}" >
                                 </div>
                             </div>
 
                             <div class="row mb-3 justify-content-center">
                                 <label for="updated_at" class="col-md-4 col-form-label text-md-end">{{ __('Last Updated') }}</label>
                                 <div class="col-md-6">
-                                    <input id="updated_at" type="text" class="form-control-plaintext" value="{{ Auth::user()->updated_at->format('M d, Y') }}" readonly>
+                                    <input id="updated_at" type="text" class="form-control-plaintext" value="{{ Auth::user()->updated_at->format('M d, Y') }}" >
                                 </div>
                             </div>
 
