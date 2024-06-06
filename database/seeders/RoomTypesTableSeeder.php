@@ -17,24 +17,24 @@ class RoomTypesTableSeeder extends Seeder
         $roomTypesData = [
             [
                 'name' => 'Standard Room',
-                'price' => 100.00,
+                'price' => 10000.00,
                 'capacity' => 2,
-                'description' => 'A cozy room with basic amenities.',
+                'description' => 'Our Standard Room offers a comfortable stay with essential amenities. Equipped with a cozy bed, a work desk, and a private bathroom, its perfect for travelers seeking simplicity and convenience',
                 'image_path' => glob(public_path('img') . '/p1.jpg')[0],
             ],
             [
                 'name' => 'Deluxe Room',
-                'price' => 150.00,
+                'price' => 15000.00,
                 'capacity' => 2,
-                'description' => 'A luxurious room with extra amenities.',
+                'description' => ': Indulge in luxury with our Deluxe Suite. Featuring spacious accommodation, a plush king-sized bed, a separate living area, and an elegant en-suite bathroom, this suite offers the ultimate in comfort and relaxation.',
                 'image_path' => glob(public_path('img') . '/p2.jpg')[0],
 
             ],
             [
-                'name' => 'Suite',
-                'price' => 250.00,
-                'capacity' => 3,
-                'description' => 'A spacious suite with a beautiful view.',
+                'name' => 'Honeymoon Suite',
+                'price' => 30000.00,
+                'capacity' => 2,
+                'description' => 'Celebrate love and romance in our luxurious Honeymoon Suite. Featuring a romantic ambiance, a luxurious king-sized bed, a private balcony with scenic views, and a lavish spa bath, its the perfect setting for a memorable honeymoon or romantic escape.',
                 'image_path' => glob(public_path('img') . '/p3.jpg')[0],
 
             ],
@@ -84,15 +84,15 @@ class RoomTypesTableSeeder extends Seeder
 
         $serviceData = [
             [
-                'title' => 'one',
-                'small_desc' => 'test',
-                'detail_desc' => 'welcome',
+                'title' => 'Fitness Center Access',
+                'small_desc' => 'Stay active during your stay with our state-of-the-art fitness facilities.',
+                'detail_desc' => 'Maintain your fitness routine even while traveling with complimentary access to our Fitness Center. Equipped with modern gym equipment, including cardio machines, free weights, and strength-training equipment, our fitness facilities cater to all fitness levels. Whether you prefer a high-intensity workout or a relaxing yoga session, our Fitness Center has everything you need to stay active and energized.',
                 'image_path' => glob(public_path('img') . '/service1.jpg')[0],
             ],
             [
-                'title' => 'two',
-                'small_desc' => 'test 1',
-                'detail_desc' => 'welcome 2',
+                'title' => 'Spa & Wellness Services',
+                'small_desc' => 'Rejuvenate your body and mind with our spa treatments.',
+                'detail_desc' => 'Treat yourself to a pampering experience with our Spa & Wellness Services. Choose from a range of rejuvenating treatments, including massages, facials, and body scrubs, designed to promote relaxation and wellness. Our skilled therapists will customize each treatment to suit your individual needs, leaving you feeling refreshed and revitalized.',
                 'image_path' => glob(public_path('img') . '/service4.jpg')[0],
             ],
         ];
