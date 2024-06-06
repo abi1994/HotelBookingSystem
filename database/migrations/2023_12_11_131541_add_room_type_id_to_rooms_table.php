@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('rooms', function (Blueprint $table) {
-            $table->integer('room_type_id');
-        });
+//        Schema::table('rooms', function (Blueprint $table) {
+//            $table->integer('room_type_id');
+//        });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('rooms', function (Blueprint $table) {
-            //
-        });
+//        Schema::table('rooms', function (Blueprint $table) {
+//            //
+//        });
     }
 };

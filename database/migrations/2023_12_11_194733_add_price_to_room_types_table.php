@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('room_types', function (Blueprint $table) {
-            Schema::table('room_types', function (Blueprint $table) {
-                $table->string('price')->nullable();
-            });
-        });
+//        Schema::table('room_types', function (Blueprint $table) {
+//            Schema::table('room_types', function (Blueprint $table) {
+//                $table->string('price')->nullable();
+//            });
+//        });
     }
 
     /**
@@ -23,8 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('room_types', function (Blueprint $table) {
-            //
-        });
+//        Schema::table('room_types', function (Blueprint $table) {
+//            //
+//        });
     }
 };
