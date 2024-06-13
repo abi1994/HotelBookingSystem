@@ -64,88 +64,13 @@
 				@endforeach
 			</div>
 		</div>
+
+
 	<!-- Gallery Section End -->
      <!-- Modal -->
     <div>
 
-        {{-- <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Popup Modal</title>
-        <style>
-        /* Popup container */
-        .popup {
-          display: none; /* Hidden by default */
-          position: fixed; /* Stay in place */
-          z-index: 9999; /* Sit on top */
-          left: 0;
-          top: 0;
-          width: 100%; /* Full width */
-          height: 100%; /* Full height */
-          overflow: auto; /* Enable scroll if needed */
-          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        /* Popup content */
-        .popup-content {
-          background-color: #fefefe;
-          margin: 15% auto; /* 15% from the top and centered */
-          padding: 20px;
-          border: 1px solid #888;
-          width: 80%; /* Could be more or less, depending on screen size */
-        }
-
-        /* Close button */
-        .close {
-          color: #aaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-          color: black;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        </style>
-        </head>
-        <body>
-
-        <!-- Button to trigger the popup -->
-        <button onclick="openPopup()">Open Popup</button>
-
-        <!-- Popup container -->
-        <div id="popup" class="popup">
-          <!-- Popup content -->
-          <div class="popup-content">
-            <!-- Close button -->
-            <span class="close" onclick="closePopup()">&times;</span>
-            <!-- Content inside the popup -->
-            <p>This is a popup/modal.</p>
-          </div>
-        </div>
-
-        <script>
-        // Function to open the popup
-        function openPopup() {
-          document.getElementById("popup").style.display = "block";
-        }
-
-        // Function to close the popup
-        function closePopup() {
-          document.getElementById("popup").style.display = "none";
-        }
-
-        // Close the popup if the user clicks outside of it
-        window.onclick = function(event) {
-          if (event.target == document.getElementById("popup")) {
-            closePopup();
-          }
-        }
-        </script> --}}
-
-        <meta charset="UTF-8">
+ <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Fancy Popup Modal</title>
         <style>
@@ -205,11 +130,15 @@
         }
 </style>
 </head>
+
+
+
 <body>
 
 <!-- Button to trigger the popup -->
-<button onclick="openPopup()" class="button">Open Popup</button>
-
+<div class="card-header text-white d-flex justify-content-center align-items-center">
+<button onclick="openPopup()" class="btn btn-primary">Open Popup</button>
+</div>
 <!-- Popup container -->
 <div id="popup" class="popup">
   <!-- Popup content -->
@@ -217,7 +146,29 @@
     <!-- Close button -->
     <span class="close" onclick="closePopup()">&times;</span>
     <!-- Content inside the popup -->
-    <p>This is a fancy popup/modal.</p>
+	  <div class="card-header bg-primary text-white d-flex justify-content-center align-items-center">
+		  <div class="text-center">
+			  <h4>{{ __('Tickets') }}</h4>
+			  <div class="profile-image-wrapper mt-2 mb-2">
+
+			  </div>
+		  </div>
+
+	  </div>
+	  <form action="{{ url('/create-ticket') }}" method="POST">
+		  @csrf
+		  <div class="form-group">
+			  <label for="subject">Subject:</label>
+			  <input type="text" name="subject" id="subject" class="form-control" required>
+		  </div>
+		  <div class="form-group">
+			  <label for="description">Description:</label>
+			  <textarea name="description" id="description" class="form-control" required></textarea>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Create Ticket</button>
+
+	  </form>
+
   </div>
 </div>
 

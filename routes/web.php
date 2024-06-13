@@ -12,7 +12,8 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomtypeController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TicketController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,6 +91,15 @@ Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])-
 Route::post('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->middleware('auth');
 
 
+//ticket
+Route::post('/create-ticket', [TicketController::class, 'createTicket'])->middleware('auth');
+Route::post('/respond-ticket/{ticket}', [TicketController::class, 'respondTicket'])->middleware('auth');
+Route::post('/close-ticket/{ticket}', [TicketController::class, 'closeTicket'])->middleware('auth');
+
+use App\Http\Controllers\FaqController;
+
+Route::get('/faq', [FaqController::class, 'index']);
+Route::post('/faq', [FaqController::class, 'store'])->middleware('auth');
 
 // BotMan
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
