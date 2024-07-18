@@ -14,6 +14,7 @@ use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,10 +92,12 @@ Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])-
 Route::post('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->middleware('auth');
 
 
-//ticket
-Route::post('/create-ticket', [TicketController::class, 'createTicket'])->middleware('auth');
-Route::post('/respond-ticket/{ticket}', [TicketController::class, 'respondTicket'])->middleware('auth');
-Route::post('/close-ticket/{ticket}', [TicketController::class, 'closeTicket'])->middleware('auth');
+//Contact-us
+Route::get('/contact-us', [ContactController::class, 'index']);
+Route::post('/contact-us', [ContactController::class, 'store']);
+Route::post('/respond-contact/{id}', [ContactController::class, 'respond']);
+Route::post('/close-contact/{id}', [ContactController::class, 'close']);
+
 
 use App\Http\Controllers\FaqController;
 

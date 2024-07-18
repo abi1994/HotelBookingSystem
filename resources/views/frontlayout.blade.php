@@ -17,6 +17,8 @@
 	<script type="text/javascript" src="{{asset('/vendor/jquery/jquery.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('/bs5/bootstrap.bundle.min.js')}}"></script>
   {{-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
+    <!-- Other head elements -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -35,11 +37,14 @@
 	        <a class="nav-link" href="{{url('logout')}}">Logout</a>
 	        <a class="nav-link btn btn-sm btn-danger" href="{{url('booking')}}">Booking</a>
                 <a class="nav-link" href="{{url('profile')}}">Profile</a>
+                <a class="nav-link" href="{{url('contact-us')}}">Contact Us</a>
 	        @else
 	        <a class="nav-link" href="{{url('login')}}">Login</a>
 	        <a class="nav-link" href="{{url('register')}}">Register</a>
 	        <a class="nav-link btn btn-sm btn-danger" href="{{url('register')}}">Booking</a>
-	        @endif
+                <a class="nav-link" href="{{url('contact-us')}}">Contact Us</a>
+
+            @endif
         </div>
       </div>
     </div>

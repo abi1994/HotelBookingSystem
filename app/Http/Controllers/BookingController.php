@@ -74,7 +74,7 @@ class BookingController extends Controller
                     'quantity' => 1,
                 ]],
                 'mode' => 'payment',
-                'success_url' => 'http://localhost:8000/',
+                'success_url' => 'http://localhost:8000/profile',
                 'cancel_url' => 'http://localhost:8000/booking/fail',
             ]);
 

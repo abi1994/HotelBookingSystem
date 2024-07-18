@@ -145,6 +145,7 @@
   <div class="popup-content">
     <!-- Close button -->
     <span class="close" onclick="closePopup()">&times;</span>
+
     <!-- Content inside the popup -->
 	  <div class="card-header bg-primary text-white d-flex justify-content-center align-items-center">
 		  <div class="text-center">
@@ -162,9 +163,14 @@
 			  <input type="text" name="subject" id="subject" class="form-control" required>
 		  </div>
 		  <div class="form-group">
+			  <label for="description">Email:</label>
+			  <input name="description" id="Email_description" class="form-control" required></input>
+		  </div>
+		  <div class="form-group">
 			  <label for="description">Description:</label>
 			  <textarea name="description" id="description" class="form-control" required></textarea>
 		  </div>
+
 		  <button type="submit" class="btn btn-primary">Create Ticket</button>
 
 	  </form>
