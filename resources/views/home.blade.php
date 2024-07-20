@@ -42,28 +42,27 @@
 	<!-- Service Section End -->
 	<!-- Gallery Section Start -->
 	<div class="container my-4">
-			<h1 class="text-center border-bottom" id="gallery">Gallery</h1>
-			<div class="row my-4">
-
-				@foreach($roomTypes as $roomType)
-        
+		<h1 class="text-center border-bottom" id="gallery">Gallery</h1>
+		<div class="row my-4">
+			@foreach($roomTypes as $roomType)
 				<div class="col-md-3">
 					<div class="card">
 						<h5 class="card-header">{{$roomType->name}}</h5>
 						<div class="card-body">
 							@foreach($roomType->images as $img)
-                <img 
-                style="width: 200px; height: 150px;" 
-                src="{{Storage::url($img->filename)}}"  alt="Image for {{ $roomType->name }}"  />
+								<a href="#" data-toggle="modal" data-target="#imageModal{{$img->id}}">
+									<img style="width: 200px; height: 150px;" src="{{Storage::url($img->filename)}}" alt="Image for {{ $roomType->name }}">
+								</a>
 
 
-				      @endforeach
+							@endforeach
 						</div>
 					</div>
 				</div>
-				@endforeach
-			</div>
+			@endforeach
 		</div>
+	</div>
+
 
 
 	<!-- Gallery Section End -->
@@ -73,129 +72,122 @@
  <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Fancy Popup Modal</title>
-        <style>
-/* Button styles */
-        .button {
-        background-color: #008CBA; /* Blue background */
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 8px; /* Rounded corners */
-        }
+		<style>
+			.popup {
+				display: none;
+				position: fixed;
+				z-index: 1;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				background-color: rgb(0,0,0);
+				background-color: rgba(0,0,0,0.4);
+				padding-top: 60px;
+			}
 
-/* Popup container */
-        .popup {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 9999; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
+			.popup-content {
+				background-color: #fefefe;
+				margin: 5% auto;
+				padding: 20px;
+				border: 1px solid #888;
+				width: 80%;
+			}
 
-/* Popup content */
-        .popup-content {
-        background-color: #fefefe;
-        margin: 5% auto; /* 5% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%; /* Could be more or less, depending on screen size */
-        border-radius: 10px; /* Rounded corners */
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Box shadow */
-        }
+			.close {
+				color: #aaa;
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+			}
 
-/* Close button */
-        .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        }
+			.close:hover,
+			.close:focus {
+				color: black;
+				text-decoration: none;
+				cursor: pointer;
+			}
+		</style>
 
-        .close:hover,
-        .close:focus
-        {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-        }
-</style>
-</head>
+		</head>
 
 
 
 <body>
 
 <!-- Button to trigger the popup -->
-<div class="card-header text-white d-flex justify-content-center align-items-center">
-<button onclick="openPopup()" class="btn btn-primary">Open Popup</button>
+<div class="card-header text-white d-flex justify-content-center align-items-center icon-search">
+	<button onclick="openPopup()" class="btn btn-primary" >
+		<i class="fa-sharp-duotone fa-solid fa-magnifying-glass" style="--fa-primary-color: #4676c8; --fa-secondary-color: #4676c8;"></i>
+		Search
+	</button>
+
 </div>
-<!-- Popup container -->
+
+
+
+<!-- Popup Modal -->
 <div id="popup" class="popup">
-  <!-- Popup content -->
-  <div class="popup-content">
-    <!-- Close button -->
-    <span class="close" onclick="closePopup()">&times;</span>
-
-    <!-- Content inside the popup -->
-	  <div class="card-header bg-primary text-white d-flex justify-content-center align-items-center">
-		  <div class="text-center">
-			  <h4>{{ __('Tickets') }}</h4>
-			  <div class="profile-image-wrapper mt-2 mb-2">
-
-			  </div>
-		  </div>
-
-	  </div>
-	  <form action="{{ url('/create-ticket') }}" method="POST">
-		  @csrf
-		  <div class="form-group">
-			  <label for="subject">Subject:</label>
-			  <input type="text" name="subject" id="subject" class="form-control" required>
-		  </div>
-		  <div class="form-group">
-			  <label for="description">Email:</label>
-			  <input name="description" id="Email_description" class="form-control" required></input>
-		  </div>
-		  <div class="form-group">
-			  <label for="description">Description:</label>
-			  <textarea name="description" id="description" class="form-control" required></textarea>
-		  </div>
-
-		  <button type="submit" class="btn btn-primary">Create Ticket</button>
-
-	  </form>
-
-  </div>
+	<div class="popup-content">
+		<span class="close" onclick="closePopup()">&times;</span>
+		<h2>Search Room</h2>
+		<form id="searchForm">
+			<div class="form-group">
+{{--				<label for="searchQuery">Search by Room Type or Description:</label>--}}
+				<input type="text" id="searchQuery" class="form-control" placeholder="Enter Room Type or Description" required>
+			</div>
+			<button type="submit" class="btn btn-primary ">Search</button>
+		</form>
+		<div id="searchResults"></div>
+	</div>
 </div>
 
 <script>
-// Function to open the popup
-function openPopup() {
-  document.getElementById("popup").style.display = "block";
-}
+	function openPopup() {
+		document.getElementById("popup").style.display = "block";
+	}
 
-// Function to close the popup
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
+	function closePopup() {
+		document.getElementById("popup").style.display = "none";
+	}
 
-// Close the popup if the user clicks outside of it
-window.onclick = function(event) {
-  if (event.target == document.getElementById("popup")) {
-    closePopup();
-  }
-}
+	document.getElementById("searchForm").addEventListener("submit", function(event) {
+		event.preventDefault();
+		const query = document.getElementById("searchQuery").value;
+		searchRooms(query);
+	});
+
+	function searchRooms(query) {
+		// Placeholder for search functionality
+		// Implement your search logic here, for example, make an AJAX request to your server
+
+		// Example search result
+		const results = [
+			{ number: '101', description: 'Single room with sea view' },
+			{ number: '102', description: 'Double room with garden view' }
+		];
+
+		// Filter results based on query
+		const filteredResults = results.filter(room =>
+				room.number.includes(query) || room.description.toLowerCase().includes(query.toLowerCase())
+		);
+
+		// Display results
+		const resultsContainer = document.getElementById("searchResults");
+		resultsContainer.innerHTML = '';
+		if (filteredResults.length > 0) {
+			filteredResults.forEach(room => {
+				const roomElement = document.createElement('div');
+				roomElement.innerHTML = `<strong>Room Number:</strong> ${room.number}<br><strong>Description:</strong> ${room.description}`;
+				resultsContainer.appendChild(roomElement);
+			});
+		} else {
+			resultsContainer.innerHTML = 'No results found.';
+		}
+	}
 </script>
+
     </div>
   </div>
 

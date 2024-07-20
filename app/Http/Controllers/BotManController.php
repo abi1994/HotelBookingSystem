@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class BotManController extends Controller
 {
-    // ... existing methods
+
 
     public function handle(Request $request)
     {

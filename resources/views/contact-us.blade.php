@@ -39,37 +39,37 @@
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
 
-                @foreach($contacts as $contact)
-                    <div class="contact mt-4">
-                        <h3>{{ $contact->name }}</h3>
-                        <p>{{ $contact->email }}</p>
-                        <p>{{ $contact->message }}</p>
-                        <p>Status: {{ $contact->status }}</p>
+{{--                @foreach($contacts as $contact)--}}
+{{--                    <div class="contact mt-4">--}}
+{{--                        <h3>{{ $contact->name }}</h3>--}}
+{{--                        <p>{{ $contact->email }}</p>--}}
+{{--                        <p>{{ $contact->message }}</p>--}}
+{{--                        <p>Status: {{ $contact->status }}</p>--}}
 
-                        @foreach($contact->responses as $response)
-                            <div class="response">
-                                <p>{{ $response->response }}</p>
-                                <p>By: {{ $response->user->name }}</p>
-                            </div>
-                        @endforeach
+{{--                        @foreach($contact->responses as $response)--}}
+{{--                            <div class="response">--}}
+{{--                                <p>{{ $response->response }}</p>--}}
+{{--                                <p>By: {{ $response->user->name }}</p>--}}
+{{--                            </div>--}}
+{{--                        @endforeach--}}
 
-                        @if($contact->status == 'open')
-                            <form action="{{ url('/respond-contact/' . $contact->id) }}" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="response">Response:</label>
-                                    <textarea name="response" id="response" class="form-control" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit Response</button>
-                            </form>
+{{--                        @if($contact->status == 'open')--}}
+{{--                            <form action="{{ url('/respond-contact/' . $contact->id) }}" method="POST">--}}
+{{--                                @csrf--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="response">Response:</label>--}}
+{{--                                    <textarea name="response" id="response" class="form-control" required></textarea>--}}
+{{--                                </div>--}}
+{{--                                <button type="submit" class="btn btn-primary">Submit Response</button>--}}
+{{--                            </form>--}}
 
-                            <form action="{{ url('/close-contact/' . $contact->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger mt-2">Close Message</button>
-                            </form>
-                        @endif
-                    </div>
-                @endforeach
+{{--                            <form action="{{ url('/close-contact/' . $contact->id) }}" method="POST">--}}
+{{--                                @csrf--}}
+{{--                                <button type="submit" class="btn btn-danger mt-2">Close Message</button>--}}
+{{--                            </form>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
             </div>
         </div>
     </div>
