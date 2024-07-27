@@ -26,4 +26,5 @@ class HomeController extends Controller
 
         return View('servicedetail', ['service' => $service]);
     }
+
 }

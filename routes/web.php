@@ -13,7 +13,6 @@ use App\Http\Controllers\RoomtypeController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +46,10 @@ Route::resource('admin/customer', CustomerController::class);
 Route::get('admin/logout', [AdminController::class, 'logout']);
 Route::get('logout', [CustomerController::class, 'logout']);
 
+//Home
 Route::get('/', [HomeController::class, 'home']);
 Route::get('/service/{id}', [HomeController::class, 'serviceDetail']);
-
+Route::get('/imaginable', [HomeController::class, 'imaginable']);
 // Admin Dashboard
 Route::get('admin', [AdminController::class, 'dashboard']);
 
@@ -84,10 +84,10 @@ Route::get('booking/fail', [BookingController::class, 'bookingPaymentFail']);
 Route::get('admin/service/{id}/delete', [ServiceController::class, 'destroy']);
 Route::resource('admin/service', ServiceController::class);
 
+//gallery
+Route::get( 'imageable', [\App\Http\Controllers\GalleryController::class, 'store']);
+
 //Profile
-//Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])
-//    ->middleware('auth')
- //   ->name('profile.show');
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->middleware('auth');
 Route::post('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->middleware('auth');
 
