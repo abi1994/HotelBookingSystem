@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>Home Page</title>
 	<link href="{{asset('/bs5/bootstrap.min.css')}}" rel="stylesheet">
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
       <!-- Custom fonts for this template-->
       <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
