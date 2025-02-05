@@ -54,20 +54,21 @@
   </main>
   <!-- Initialize BotMan Widget -->
   <script>
-  var botmanWidget = {
-    frameEndpoint: "{{url('/botman/chat')}}", // Endpoint for BotMan chat
-    chatServer: "{{url('/botman')}}", // BotMan server endpoint
-    title: 'Chatbot', // Title for the chatbot window
-    mainColor: '#0084ff', // Color theme for the chatbot
-    bubbleBackground: '#0084ff', // Chat bubble background color
-    aboutText: '', // Information about the chatbot
-    introMessage: 'Hi! How can I help you today?', // Initial message in the chat window
-    placeholderText: 'Type a message...', // Placeholder text in the input field
-    desktopHeight: 450, // Height of the chatbot window on desktop
-    mobileHeight: '100%', // Height of the chatbot window on mobile devices
-  };
-</script>
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+      var botmanWidget = {
+          frameEndpoint: "{{ url('/botman/chat') }}",
+          chatServer: "{{ url('/botman') }}", // Matches the route we defined
+          title: 'Chatbot',
+          mainColor: '#0084ff',
+          bubbleBackground: '#0084ff',
+          aboutText: '',
+          introMessage: 'Hi! How can I help you today?',
+          placeholderText: 'Type a message...',
+          desktopHeight: 450,
+          mobileHeight: '100%',
+      };
+  </script>
+  <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+
 
 </body>
 </html>

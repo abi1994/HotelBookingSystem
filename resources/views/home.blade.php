@@ -178,18 +178,15 @@
 	});
 
 	function searchRooms(query) {
-		// Placeholder for search functionality
-		// Implement your search logic here, for example, make an AJAX request to your server
-
-		// Example search result
 		const results = [
-			{ number: '101', description: 'Single room with sea view' },
-			{ number: '102', description: 'Double room with garden view' }
+			{ name: 'Standard Room', description: 'Our Standard Room offers a comfortable stay with essential amenities. Equipped with a cozy bed, a work desk, and a private bathroom, its perfect for travelers seeking simplicity and convenience' },
+			{ name: 'Deluxe Room', description: 'Indulge in luxury with our Deluxe Suite. Featuring spacious accommodation, a plush king-sized bed, a separate living area, and an elegant en-suite bathroom, this suite offers the ultimate in comfort and relaxation.' },
+			{ name:'Honeymoon Suite',description: 'Celebrate love and romance in our luxurious Honeymoon Suite. Featuring a romantic ambiance, a luxurious king-sized bed, a private balcony with scenic views, and a lavish spa bath, its the perfect setting for a memorable honeymoon or romantic escape.'}
 		];
 
 		// Filter results based on query
 		const filteredResults = results.filter(room =>
-				room.number.includes(query) || room.description.toLowerCase().includes(query.toLowerCase())
+				room.name.includes(query) || room.description.toLowerCase().includes(query.toLowerCase())
 		);
 
 		// Display results
@@ -198,7 +195,7 @@
 		if (filteredResults.length > 0) {
 			filteredResults.forEach(room => {
 				const roomElement = document.createElement('div');
-				roomElement.innerHTML = `<strong>Room Number:</strong> ${room.number}<br><strong>Description:</strong> ${room.description}`;
+				roomElement.innerHTML = `<strong>Room Name:</strong> ${room.name}<br><strong>Description:</strong> ${room.description}`;
 				resultsContainer.appendChild(roomElement);
 			});
 		} else {

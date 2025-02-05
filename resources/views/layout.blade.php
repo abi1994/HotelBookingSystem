@@ -135,6 +135,15 @@
                     <span>Service</span></a>
             </li>
 
+            <!-- Nav Item - Inventory -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('admin/inventory-items') }}">
+                    <i class="fas fa-table"></i>
+                    <span>Inventory</span>
+                </a>
+            </li>
+
+
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="{{url('admin/logout')}}">

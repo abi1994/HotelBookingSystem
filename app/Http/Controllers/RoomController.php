@@ -84,4 +84,17 @@ class RoomController extends Controller
 
         return redirect('admin/rooms')->with('success', 'Data has been deleted.');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Fetch rooms matching the query
+        $rooms = Room::where('number', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->get();
+
+        // Return data as JSON
+        return response()->json($rooms);
+    }
 }

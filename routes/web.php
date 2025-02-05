@@ -14,6 +14,7 @@ use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\InventoryItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,6 +65,8 @@ Route::resource('admin/roomtype', RoomtypeController::class);
 // Room
 Route::get('admin/rooms/{id}/delete', [RoomController::class, 'destroy']);
 Route::resource('admin/rooms', RoomController::class);
+Route::get('/rooms/search', [RoomController::class, 'search']);
+
 
 // Customer
 Route::get('admin/customer/{id}/delete', [CustomerController::class, 'destroy']);
@@ -98,11 +101,13 @@ Route::post('/contact-us', [ContactController::class, 'store']);
 Route::post('/respond-contact/{id}', [ContactController::class, 'respond']);
 Route::post('/close-contact/{id}', [ContactController::class, 'close']);
 
-
-use App\Http\Controllers\FaqController;
-
-Route::get('/faq', [FaqController::class, 'index']);
-Route::post('/faq', [FaqController::class, 'store'])->middleware('auth');
+//inventory
+Route::get('admin/inventory-items', [InventoryItemController::class, 'index']); // For fetching the list
+Route::post('admin/inventory-items/store', [InventoryItemController::class, 'store']);
+Route::get('admin/inventory/{id}/delete', [InventoryItemController::class, 'destroy']); // For deleting an item
+Route::get('admin/inventory-items/edit/{id}', [InventoryItemController::class, 'edit']);
+Route::put('admin/inventory-items/update/{id}', [InventoryItemController::class, 'update']);
+Route::get('admin/inventory-items/create', [InventoryItemController::class, 'create']);
 
 // BotMan
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);

@@ -1,98 +1,43 @@
 @extends('layout')
-@section('content')
-<!-- Begin Page Content -->
-                <div class="container-fluid">
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Update {{$data->name}}
-                                <a href="{{url('admin/roomtype')}}" class="float-right btn btn-success btn-sm">View All</a>
-                            </h6>
-                        </div>
-                        <div class="card-body">
-                            @if(Session::has('success'))
-                            <p class="text-success">{{session('success')}}</p>
-                            @endif
-                            <div class="table-responsive">
-                                <form enctype="multipart/form-data" method="post" action="{{url('admin/roomtype/'.$data->id)}}">
-                                    @csrf
-                                    @method('put')
-                                    <table class="table table-bordered" >
-                                        <tr>
-                                            <th>Title</th>
-                                            <td><input value="{{$data->name}}" name="name" type="text" class="form-control" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Price</th>
-                                            <td><input value="{{$data->price}}" name="price" type="number" class="form-control" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Price</th>
-                                            <td><input value="{{$data->capacity}}" name="capacity" type="number" class="form-control" /></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Detail</th>
-                                            <td><textarea name="description" class="form-control">{{$data->description}}</textarea></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Gallery Images</th>
-                                            <td>
-                                                <table class="table table-bordered mt-3">
-                                                    <tr>
-                                                        <input type="file" name="filename" /> 
-                                                        @foreach($data->images as $img)
-                                                        <td class="imgcol{{$img->id}}">
-                                                            <img width="150" src="{{Storage::url($img->filename)}}" />
-                                                                <p class="mt-2">
-                                                                    <button 
-                                                                        type="button" 
-                                                                        onclick="return confirm('Are you sure you want to delete this image??')" 
-                                                                        class="btn btn-danger btn-sm delete-image" data-image-id="{{$img->id}}">
-                                                                        <i class="fa fa-trash"></i></button>
-                                                                </p>
-                                                        </td>
-                                                        @endforeach
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <input type="submit" class="btn btn-primary" />
-                                            </td> 
-                                        </tr>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
+@section('content')
+    <div class="container mt-4">
+        <div class="card shadow">
+            <div class="card-header">
+                <h5>Edit Inventory Item</h5>
+            </div>
+            <div class="card-body">
+                <form action="{{ url('admin/inventory-items/update', $item->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="item_name">Item Name</label>
+                        <input type="text" name="item_name" id="item_name" class="form-control" value="{{ $item->item_name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" name="quantity" id="quantity" class="form-control" value="{{ $item->quantity }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="room_id">Room</label>
+                        <select name="room_id" id="room_id" class="form-control" required>
+                            <option value="" disabled>Select Room</option>
+                            @foreach ($rooms as $room)
+                                <option value="{{ $room->id }}" {{ $item->room_id == $room->id ? 'selected' : '' }}>
+                                    {{ $room->title }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
-                </div>
-                <!-- /.container-fluid -->
-
-@section('scripts')
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".delete-image").on('click',function(){
-            var _img_id=$(this).attr('data-image-id');
-            var _vm=$(this);
-            $.ajax({
-                url:"{{url('admin/roomtypeimage/delete')}}/"+_img_id,
-                dataType:'json',
-                beforeSend:function(){
-                    _vm.addClass('disabled');
-                },
-                success:function(res){
-                    if(res.bool==true){
-                        $(".imgcol"+_img_id).remove();
-                    }
-                    _vm.removeClass('disabled');
-                }
-            });
-        });
-    });
-</script>
-@endsection
-
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" class="form-control">{{ $item->description }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Update Item</button>
+                    <a href="{{ url('admin/inventory-items') }}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -26,4 +26,10 @@ class Room extends Model
     {
         return $this->hasMany(Booking::class);
     }
+    public function inventoryItems()
+    {
+        return $this->hasMany(InventoryItem::class);
+    }
+
+
 }

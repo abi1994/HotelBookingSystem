@@ -109,8 +109,9 @@
                                         <tr>
                                             <td>{{ $booking->room->title }}</td>
                                             <td>{{ $booking->room->roomType?->name }}</td>
-                                            <td>{{ $booking->check_in_date }}</td>
-                                            <td>{{ $booking->check_out_date }}</td>
+                                            <td>{{ date('Y-m-d', strtotime($booking->check_in_date)) }}</td>
+                                            <td>{{ date('Y-m-d', strtotime($booking->check_out_date)) }}</td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>

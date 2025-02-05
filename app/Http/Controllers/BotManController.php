@@ -33,7 +33,7 @@ class BotManController extends Controller
         $botman->ask('Hello! What is your Name?', function ($answer, $botman) {
             $name = $answer->getText();
             if ($name != null) {
-                $this->say('Hi '.$name);
+                $botman->say('Hi '.$name);
                 $question = Question::create('How can I help you?')
                     ->addButtons([
                         Button::create('Room Price?')->value('price'), // Corrected button value
@@ -42,43 +42,47 @@ class BotManController extends Controller
                     ]);
 
                 $botman->ask($question, function ($answer, $botman) {
-                    $selectedOption = $answer->getValue(); // Use getValue() to retrieve the button value
+                    $selectedOption = $answer->getText(); // Get text instead of value
+                    $botman->reply("DEBUG: You selected: " . json_encode($selectedOption));
+                    // Use getValue() to retrieve the button value
 
                     if ($selectedOption === 'available_rooms_today') {
                         $checkin_date = Carbon::now()->toDateString();
 
-                        $availableRooms = DB::select("SELECT * FROM rooms WHERE id NOT IN (SELECT room_id FROM bookings WHERE '$checkin_date')");
+                        $availableRooms = DB::select("SELECT * FROM rooms WHERE id NOT IN ( SELECT room_id FROM bookings WHERE check_in_date = CURRENT_DATE );");
 
-                        if (! empty($availableRooms)) {
+                        if (!empty($availableRooms)) {
                             $reply = "Available rooms:\n";
+
                             foreach ($availableRooms as $room) {
                                 $roomType = DB::table('room_types')->where('id', $room->room_type_id)->first();
-                                $reply = "Room : $room->title, Room Type: $roomType->title\n"; // Use .= to append to the reply
-                                $this->say($reply); // Use botman->reply to send the message
+                                $reply .= "Room: $room->title, Room Type: $roomType->title\n"; // Append instead of overwrite
                             }
 
+                            $botman->say($reply); // Send the message once
                         } else {
-                            $this->say('Sorry, no rooms are available for the specified date.');
+                            $botman->say('Sorry, no rooms are available for the specified date.');
                         }
+
                     } elseif ($selectedOption === 'price') { // Corrected condition
                         $rooms = DB::select('SELECT * FROM room_types');
 
                         if (! empty($rooms)) {
                             $reply = "Room Prices:\n";
                             foreach ($rooms as $room) {
-                                $reply = "Room : $room->title, Price: $room->price\n"; // Use .= to append to the reply
-                                $this->say($reply); // Use botman->reply to send the message
+                                $reply .= "Room : $room->title, Price: $room->price\n"; // Use .= to append to the reply
+                                $botman->say($reply); // Use botman->reply to send the message
                             }
 
                         } else {
-                            $this->say('Sorry, No rooms found.');
+                            $botman->say('Sorry, No rooms found.');
                         }
                     } else {
-                        $this->say("I'm sorry, I didn't understand that request.");
+                        $botman->say("I'm sorry, I didn't understand that request.");
                     }
                 });
             } else {
-                $this->say('Sorry, Please mention your name');
+                $botman->say('Sorry, Please mention your name');
             }
         });
     }
